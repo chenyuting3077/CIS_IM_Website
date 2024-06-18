@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>IM Detection System</title>
+    
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    <link href="../static/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/drag_area.css">
+    <link rel="stylesheet" href="../static/css/scroll.css">
+    <link rel="stylesheet" href="../static/css/table.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.30.5/css/theme.blue.min.css"> 
+    
+    <script src="https://kit.fontawesome.com/a59b9b09ab.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.30.5/js/jquery.tablesorter.min.js"></script>
+    <script src="../static/js/drag.js"></script>
+
+</head>
+    <body>
+        <div style="text-align:center; margin:20px">
+          <span style="font-size: xxx-large; font-weight:bold">Gastic Intestinal Metaplasia (IM) Segmentation System</span>
+          <hr style="border: 3px solid black; width: 50%; margin:auto"/>
+        </div>
+        <div class="body-container">
+          <form method="post" enctype="multipart/form-data">
+            <!-- drag area-->
+            <div id="drag-area" class="drag-area">
+              <div id="drop_icon" class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
+              <header id="drop_text">Drag/Browse file to upload Images</header><br>
+              <button type="button" id="drop_button">Browse File</button>
+              <input id="drop_input" type="file" name="files" hidden multiple/>
+            </div>
+            <!-- preview area-->
+            <div class="preview" id="preview_a" style="margin: auto;"> </div>
+            <div class="main-scroll-div">
+              <div>
+                  <button type="button" class="icon" onclick="scrollr()"> <i class="fas fa-angle-double-left"></i></button>
+              </div>
+              <div class="cover">
+                  <div class="scroll-images" id="preview_small"> 
+                  </div>
+              </div>
+              <div>
+                  <button type="button" class="icon" onclick="scrolll()"> <i class="fas fa-angle-double-right"></i></button>
+              </div>
+            </div>
+            <!-- submit-->
+            <div class="button_div">
+              <input type="submit" value="Submit" class="button"/>
+            </div>
+          </form>
+
+          <table id="myTable" class="tablesorter">
+            <thead>
+                <tr>
+                    <th class="text-result"> Result </th>
+                    <th class="text-result"> GIM Area (%)</th>
+                     <th class="text-result"> GIM Score </th>
+                </tr>
+            </thead>
+            <tbody>
+              {% if imgs %}
+                {% for i in range(file_nums) %}
+                  <tr>
+                    <td>
+                      <div><img src="{{imgs[i]}}" class="table-img"><div>
+                      <div>{{file_names[i]}}<div>
+                    </td>
+                    <td>
+                      <div>{{areas[i]}}<div>
+                    </td>
+                    <td>
+                      <div>{{scores[i]}}</div>
+                    </td>
+                  </tr>
+                {% endfor %}
+                <!--       Total             -->
+                <td colspan="2">Total Score: </td>
+                <td><div>{{total_score}}</div></td>
+              {% endif %}
+
+
+            </tbody>
+          </table>
+        </div>
+    </body>
+
+
+    
+
+ 
+</html>

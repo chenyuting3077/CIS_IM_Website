@@ -1,0 +1,33 @@
+#myTable th{
+  font-size: 24px;
+  height: 50px;
+  padding: 5px;
+  /*color: #161616; /* 表頭文字白色 */
+}
+
+#myTable{
+  border-collapse: collapse; /* 表格邊框合併 */
+  width: 500px; /* 寬度 100% */
+  background-color: white; /* 背景白色 */
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+#myTable td,
+#myTable th {
+  text-align: center; /* 文字置中顯示 */
+  padding: 5px; /* 添加內距 */
+  vertical-align: middle;
+  width: 200px;
+}
+
+#myTable td{
+    font-size: 20px;
+    font-weight: 700 ;
+  }
+
+.table-img{
+    height: 280px;
+    width: 280px;
+    cursor: pointer;
+}
