@@ -21,3 +21,4 @@
 /mmdetection/.dev_scripts/
 /mmdetection/.github/
 /mmdetection/mmdet.egg-info/
+/static/predict_img/
