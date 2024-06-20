@@ -7,7 +7,7 @@
 
 #myTable{
   border-collapse: collapse; /* 表格邊框合併 */
-  width: 500px; /* 寬度 100% */
+  width: 700px; /* 寬度 100% */
   background-color: white; /* 背景白色 */
   margin-left: 50px;
   margin-right: 50px;
