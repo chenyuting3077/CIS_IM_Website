@@ -30,6 +30,7 @@ def main():
 
         if files:
             input_files = save_files(files)
+            print(input_files[0])
             # init
             areas, scores, predict_files, file_names= [], [], [], []
             tasks = []
@@ -37,10 +38,22 @@ def main():
             for batch_input_file in batch(input_files, 16):
                 # input_file = [input_file]
                 results = inference_model(model, batch_input_file)
+
+                # !!! Create a mask that sets the value to 1 when all three channels are within the upper and lower bounds.
+                image = np.array(Image.open(batch_input_file[0]))
+                lower_bound = 50
+                upper_bound = 200
+                mask = (image > lower_bound) & (image < upper_bound)
+                mask = np.all(mask, axis=-1)
+                mask = np.expand_dims(mask, axis=0)
+
                 # tasks.append(save_results(results, batch_input_file))
                 save_results(results, batch_input_file)
                 for result in results:
                     predict_result = result.pred_sem_seg.data.cpu()
+                    # !!! only count the score of the pixel between upper bound and lower bound
+                    predict_result = predict_result * mask
+
                     area = torch.sum(predict_result) / (predict_result.size()[1] * predict_result.size()[2])
                     area = np.round(area.numpy()*100, 2)
                     if area >= 30:
