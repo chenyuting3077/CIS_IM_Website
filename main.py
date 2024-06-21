@@ -39,18 +39,26 @@ def main():
                 # input_file = [input_file]
                 results = inference_model(model, batch_input_file)
 
-                # !!! Create a mask that sets the value to 1 when all three channels are within the upper and lower bounds.
-                image = np.array(Image.open(batch_input_file[0]))
-                lower_bound = 50
-                upper_bound = 200
-                mask = (image > lower_bound) & (image < upper_bound)
-                mask = np.all(mask, axis=-1)
-                mask = np.expand_dims(mask, axis=0)
 
                 # tasks.append(save_results(results, batch_input_file))
                 save_results(results, batch_input_file)
+                count = 0
                 for result in results:
                     predict_result = result.pred_sem_seg.data.cpu()
+
+                    # !!! Create a mask that sets the value to 1 when all three channels are within the upper and lower bounds.
+                    image = np.array(Image.open(batch_input_file[count]))
+                    lower_bound = 50
+                    upper_bound = 200
+                    mask = (image > lower_bound) & (image < upper_bound)
+
+                    mask = np.all(mask, axis=-1)
+                    mask = mask.astype(int)
+                    # image_scaled = (image * 255).astype(np.uint8)
+                    # image_pil = Image.fromarray(image_scaled)
+                    # image_pil.save("/home/cvml-ubuntu/CIS_IM_Website/mask/" + batch_input_file[count].split('/')[-1])
+                    mask = np.expand_dims(mask, axis=0)
+
                     # !!! only count the score of the pixel between upper bound and lower bound
                     predict_result = predict_result * mask
 
@@ -65,7 +73,7 @@ def main():
                     total_score += score
                     areas.append(area)
                     scores.append(score)
-
+                    count += 1
             predict_files += get_predict_files()
             file_names += get_file_name(input_files)
             # asyncio.run(asyncio.wait(tasks))
