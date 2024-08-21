@@ -1,6 +1,6 @@
 ## Prepared
 
-Put [weight.pth](https://drive.google.com/file/d/10I4V4Y1uW7YHNzTL_56fyCRhZbwlnSh6/view?usp=drive_link) into ./model file
+Put [weight.pth](https://drive.google.com/file/d/1EYUdbDnPDNLIxAaxPamcR4o6mi5PjRjK/view?usp=sharing) into ./model file
 
 ## Installation
     conda create --name IM_web python=3.8
