@@ -122,12 +122,12 @@ def save_files(files):
         output_files.append(file_path)
     return output_files
 
-def get_predict_files():
+def get_predict_files(input_files):
     predict_folder = os.path.join('static', 'predict_img')
+    file_name = [os.path.basename(file) for file in input_files]
     # read all files in predict folder
-    files = os.listdir(predict_folder)
     # get all file path
-    files_path = [os.path.join(predict_folder, file) for file in files]
+    files_path = [os.path.join(predict_folder, file) for file in file_name]
     return files_path
 
 def load_model(config_path, checkpoint_path):
