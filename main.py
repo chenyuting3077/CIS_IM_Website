@@ -74,7 +74,7 @@ def main():
                     areas.append(area)
                     scores.append(score)
                     count += 1
-            predict_files += get_predict_files()
+            predict_files = get_predict_files(input_files)
             file_names += get_file_name(input_files)
             # asyncio.run(asyncio.wait(tasks))
             end_time = time.time()
